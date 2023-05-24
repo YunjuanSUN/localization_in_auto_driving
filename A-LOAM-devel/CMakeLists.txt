@@ -5,6 +5,7 @@ set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
 
+#引入catkin构建系统
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
@@ -30,13 +31,14 @@ include_directories(
   ${CERES_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS})
 
+#用于定义catkin软件包的属性, 用于描述软件包的依赖关系、包含目录和特定于catkin的属性
 catkin_package(
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs
   DEPENDS EIGEN3 PCL 
   INCLUDE_DIRS include
 )
 
-
+#调用一个包，就是常规三步：find_package，include_directions，target_link_libraries
 add_executable(ascanRegistration src/scanRegistration.cpp)
 target_link_libraries(ascanRegistration ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
